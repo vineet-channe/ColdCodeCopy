@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import scholarshipsData from "./scholarships.json";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import Navbar from "./Navbar";
 
 const Scholarship = () => {
   const [filters, setFilters] = useState({
@@ -61,6 +62,7 @@ const Scholarship = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+        <Navbar/>
       <div className="w-1/4 p-6 bg-white shadow-md">
         <h2 className="text-2xl font-bold mb-6">Filters</h2>
 

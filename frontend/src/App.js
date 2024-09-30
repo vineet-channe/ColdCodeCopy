@@ -10,7 +10,6 @@ import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import UserProfile from './components/Profile';
 import Scholarship from './components/Scholarship';
-import Community from './components/Community'
 import VideoCall from './components/VideoPage';
 import Home from './components/Home';
 import CommunityForum from './components/Community';
@@ -35,7 +34,7 @@ function App() {
       <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/login" element={<GoogleAuthWrapper />} />
-        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard/>} />} />
+        <Route path="/ytdashboard" element={<PrivateRoute element={<Dashboard/>} />} />
         <Route path="/community" element={<PrivateRoute element={<CommunityForum/>} />} />
         <Route path="/scholarship" element={<PrivateRoute element={<Scholarship/>} />} />
         <Route path="/profile" element={<PrivateRoute element={<UserProfile/>} />} />
