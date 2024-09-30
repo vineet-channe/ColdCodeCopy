@@ -12,9 +12,9 @@ const Home = () => {
   return (
     <div className="max-w-screen">
       <HomeHero />
-{/* 
+{ 
       <Showcase type={"home"} />
-      <LPM />
+      /*<LPM />
       <Opportunities />
       <FeaturedOpp type={"home"} /> */}
     </div>
