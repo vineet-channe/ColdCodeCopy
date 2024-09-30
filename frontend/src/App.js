@@ -14,7 +14,7 @@ function App() {
 
   const GoogleAuthWrapper = () => {
     return (
-      <GoogleOAuthProvider clientId="16519196980-moedlvne2cbumbt5pjj867r3jvs89qmh.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId="699732260476-g2ebebevveek24fnh97or4v894mog4ca.apps.googleusercontent.com">
         <Login/>
       </GoogleOAuthProvider>
     );
