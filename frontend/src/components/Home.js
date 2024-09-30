@@ -12,11 +12,12 @@ const Home = () => {
   return (
     <div className="max-w-screen">
       <HomeHero />
-{ 
+
       <Showcase type={"home"} />
-      /*<LPM />
-      <Opportunities />
-      <FeaturedOpp type={"home"} /> */}
+      {/*<LPM />
+      <Opportunities />*/}
+      <FeaturedOpp type={"home"} />
+      <FeaturedOpp type={"home"} />
     </div>
   );
 };
