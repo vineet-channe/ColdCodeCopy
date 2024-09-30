@@ -25,10 +25,11 @@ function Navbar() {
                     <h1 className="text-xl font-bold text-gray-800">Sarthi</h1>
                     
                     <div className="sm:hidden md:flex space-x-10 mx-10">
-                        <Link to="/dashboard" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Home</Link>
-                        <Link to="/" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Scholarship</Link>
-                        <Link to="/pricing" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Community</Link>
-                        <Link to="/contact" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Contact</Link>
+                        <Link to="/home" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Home</Link>
+                        <Link to="/ytdashboard" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Learn</Link>
+                        <Link to="/scholarship" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Scholarship</Link>
+                        <Link to="/community" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Community</Link>
+                       
                     </div>
 
                     <div className="flex flex-row">

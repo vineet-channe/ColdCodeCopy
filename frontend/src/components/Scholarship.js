@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import scholarshipsData from "./scholarships.json";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import Navbar from "./Navbar";
 
 const Scholarship = () => {
   const [filters, setFilters] = useState({
@@ -21,6 +22,7 @@ const Scholarship = () => {
     endDate: ""
   });
 
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
   const [filteredResults, setFilteredResults] = useState(scholarshipsData);
 
   const handleFilterChange = (e) => {
@@ -42,9 +44,22 @@ const Scholarship = () => {
     setFilters({ ...filters, stipendRange: value });
   };
 
+  // Handle search functionality
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   useEffect(() => {
     const filtered = scholarshipsData.filter((scholarship) => {
+      const matchesSearch = scholarship.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) || 
+        scholarship.description
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
       return (
+        matchesSearch &&
         (filters.state ? scholarship.state === filters.state : true) &&
         (filters.class ? scholarship.class === filters.class : true) &&
         (filters.caste ? scholarship.caste === filters.caste : true) &&
@@ -57,15 +72,15 @@ const Scholarship = () => {
       );
     });
     setFilteredResults(filtered);
-  }, [filters]);
+  }, [filters, searchTerm]);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+      <Navbar />
       <div className="w-1/4 p-6 bg-white shadow-md">
         <h2 className="text-2xl font-bold mb-6">Filters</h2>
-
-        {/* State Filter */}
-        <div className="mb-4">
+  {/* State Filter */}
+  <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">State</label>
           <select name="state" onChange={handleFilterChange} className="mt-1 block w-full p-2 border rounded-md">
             <option value="">Select State</option>
@@ -234,23 +249,57 @@ const Scholarship = () => {
         </button>
       </div>
 
+
+
       {/* Results Display */}
       <div className="flex-grow p-6">
         <h2 className="text-2xl font-bold mb-6">Scholarship Results</h2>
+
+        {/* Search bar */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Search scholarships by title or description..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="w-full p-2 border rounded-md"
+          />
+        </div>
+
         {filteredResults.length > 0 ? (
-          <ul className="list-disc pl-5">
+          <div className="list-disc pl-5">
             {filteredResults.map((scholarship) => (
-              <li key={scholarship.id} className="mb-4 p-4 border border-gray-200 rounded">
+              <div key={scholarship.id} className="mb-4 p-4 border border-gray-200 rounded">
                 <h3 className="font-semibold text-lg">{scholarship.title}</h3>
                 <p>{scholarship.description}</p>
-                <p><strong>Stipend:</strong> ₹{scholarship.stipend}</p>
-                <p><strong>State:</strong> {scholarship.state}</p>
-                <p><strong>Class:</strong> {scholarship.class}</p>
-                <p><strong>Caste:</strong> {scholarship.caste}</p>
-                <p><strong>Eligibility:</strong> {scholarship.eligibility}</p>
-              </li>
+                <p>
+                  <strong>Stipend:</strong> ₹{scholarship.stipend}
+                </p>
+                <p>
+                  <strong>State:</strong> {scholarship.state}
+                </p>
+                <p>
+                  <strong>Class:</strong> {scholarship.class}
+                </p>
+                <p>
+                  <strong>Caste:</strong> {scholarship.caste}
+                </p>
+                <p>
+                  <strong>Eligibility:</strong> {scholarship.eligibility}
+                </p>
+
+                {/* Apply Button */}
+                <a
+                  href={scholarship.applyLink} // Assuming the scholarship data has an `applyLink` field
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block bg-blue-500 text-white py-1 px-4 rounded-md"
+                >
+                  Apply
+                </a>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No scholarships match your filters.</p>
         )}

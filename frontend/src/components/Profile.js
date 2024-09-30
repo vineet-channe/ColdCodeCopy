@@ -162,92 +162,73 @@ const UserProfile = () => {
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col">
       <Navbar />
-
+  
       <div className="flex-grow flex items-center justify-center py-12">
-        <div className="flex w-full max-w-4xl bg-white shadow-md rounded-lg">
-          <div className="flex-grow p-6">
-            <h2 className="text-2xl font-bold mb-4">Complete Your Profile</h2>
-
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={userProfile.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
-                  required
-                />
+        <div className="flex w-4/5 max-w-6xl bg-white shadow-md rounded-lg">
+          {/* Profile Picture Section */}
+          <div className="w-1/4 p-6 flex flex-col items-center justify-center border-r-2 bg-white">
+            <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full mb-4" />
+            <h3 className="text-lg font-semibold">{profileName}</h3>
+          </div>
+  
+          {/* Profile Form Section */}
+          <div className="w-3/4 p-6 max-h-screen">
+            
+            <form onSubmit={handleSubmit} className="h-full flex flex-wrap gap-4">
+              {/* Name and Phone Number */}
+              <div className="w-full flex items-center">
+                <div className="w-1/2 pr-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={userProfile.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                    className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
+                    required
+                  />
+                </div>
+                <div className="w-1/2 pl-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={userProfile.phoneNumber}
+                    onChange={handleChange}
+                    placeholder="Enter your phone number"
+                    className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
+                    required
+                  />
+                </div>
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={userProfile.phoneNumber}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
-                  Age
-                </label>
-                <input
-                  type="number"
-                  id="age"
-                  name="age"
-                  value={userProfile.age}
-                  onChange={handleChange}
-                  placeholder="Enter your age"
-                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="academic_interests">
-                  Academic Interests *
-                </label>
-                <Select
-                  id="academic_interests"
-                  name="academic_interests"
-                  isMulti
-                  options={academicOptions}
-                  value={academicOptions.filter(option => userProfile.academic_interests.includes(option.value))}
-                  onChange={handleAcademicChange}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="career_aspirations">
-                  Career Aspirations *
-                </label>
-                <Select
-                  id="career_aspirations"
-                  name="career_aspirations"
-                  isMulti
-                  options={careerOptions}
-                  value={careerOptions.filter(option => userProfile.career_aspirations.includes(option.value))}
-                  onChange={handleCareerChange}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  required
-                />
-              </div>
-              <div className="mb-4">
+  
+              {/* Age */}
+              <div className="w-full flex items-center">
+                <div className="w-full
+                 pr-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value={userProfile.age}
+                    onChange={handleChange}
+                    placeholder="Enter your age"
+                    className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:border-cyan-500"
+                  />
+                </div>
+                <div className="w-full">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="expected_hours">
-                  Expected Hours *
+                  Expected Study Hours *
                 </label>
                 <Select
                   id="expected_hours"
@@ -255,76 +236,105 @@ const UserProfile = () => {
                   options={expectedHoursOptions}
                   value={expectedHoursOptions.find(option => option.value === userProfile.expected_hours)}
                   onChange={handleExpectedHoursChange}
-                  className="basic-single"
-                  classNamePrefix="select"
+                  placeholder="Select expected hours"
+                  className="border rounded-lg w-full"
                   required
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_languages">
-                  Preferred Languages *
-                </label>
-                <Select
-                  id="preferred_languages"
-                  name="preferred_languages"
-                  isMulti
-                  options={languageOptions}
-                  value={languageOptions.filter(option => userProfile.preferred_languages.includes(option.value))}
-                  onChange={handleLanguageChange}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  required
-                />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_communication">
-                  Preferred Communication *
-                </label>
-                <Select
-                  id="preferred_communication"
-                  name="preferred_communication"
-                  isMulti
-                  options={communicationOptions}
-                  value={communicationOptions.filter(option => userProfile.preferred_communication.includes(option.value))}
-                  onChange={handleCommunicationChange}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  required
-                />
+  
+              {/* Academic Interests and Career Aspirations */}
+              <div className="w-full flex">
+                <div className="w-1/2 pr-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="academic_interests">
+                    Academic Interests *
+                  </label>
+                  <Select
+                    id="academic_interests"
+                    name="academic_interests"
+                    isMulti
+                    options={academicOptions}
+                    value={academicOptions.filter(option => userProfile.academic_interests.includes(option.value))}
+                    onChange={handleAcademicChange}
+                    placeholder="Select academic interests"
+                    className="border rounded-lg w-full"
+                    required
+                  />
+                </div>
+                <div className="w-1/2 pl-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="career_aspirations">
+                    Career Aspirations
+                  </label>
+                  <Select
+                    id="career_aspirations"
+                    name="career_aspirations"
+                    isMulti
+                    options={careerOptions}
+                    value={careerOptions.filter(option => userProfile.career_aspirations.includes(option.value))}
+                    onChange={handleCareerChange}
+                    placeholder="Select career aspirations"
+                    className="border rounded-lg w-full"
+                  />
+                </div>
               </div>
-
-              {error && <div className="text-red-500 mb-4">{error}</div>}
-              {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>}
-              
-              <div className="flex items-center justify-between mt-6">
+  
+              {/* Preferred Communication and Languages */}
+              <div className="w-full flex">
+                <div className="w-1/2 pr-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_communication">
+                    Preferred Communication *
+                  </label>
+                  <Select
+                    id="preferred_communication"
+                    name="preferred_communication"
+                    isMulti
+                    options={communicationOptions}
+                    value={communicationOptions.filter(option => userProfile.preferred_communication.includes(option.value))}
+                    onChange={handleCommunicationChange}
+                    placeholder="Select communication methods"
+                    className="border rounded-lg w-full"
+                    required
+                  />
+                </div>
+                <div className="w-1/2 pl-2">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_languages">
+                    Preferred Languages
+                  </label>
+                  <Select
+                    id="preferred_languages"
+                    name="preferred_languages"
+                    isMulti
+                    options={languageOptions}
+                    value={languageOptions.filter(option => userProfile.preferred_languages.includes(option.value))}
+                    onChange={handleLanguageChange}
+                    placeholder="Select preferred languages"
+                    className="border rounded-lg w-full"
+                  />
+                </div>
+              </div>
+  
+              {/* Submit Button */}
+              <div className="flex justify-end mt-4 w-full">
                 <button
                   type="submit"
-                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-cyan-600"
                   disabled={loading}
                 >
                   {loading ? 'Updating...' : 'Update Profile'}
                 </button>
-
-                <button
-                  type="button"
-                  onClick={handleLookUpMentor}
-                  className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Look Up Mentor
-                </button>
               </div>
             </form>
-          </div>
-          <div className="w-1/3 p-6 flex flex-col items-center justify-center bg-gray-100">
-            <img src={profileImage} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-            <h3 className="text-lg font-semibold">{profileName}</h3>
+            
+            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+  
+            {/* Popup for mentor lookup */}
+            {popupVisible && <Popup onClose={() => setPopupVisible(false)} />} 
           </div>
         </div>
       </div>
-
-      {popupVisible && <Popup onClose={() => setPopupVisible(false)} />}
     </div>
   );
-};
+  };
 
 export default UserProfile;

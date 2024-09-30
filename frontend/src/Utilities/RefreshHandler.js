@@ -13,7 +13,7 @@ function RefreshHandler({ setIsAuthenticated }) {
       setIsAuthenticated(true);
 
       if (location.pathname === '/' || location.pathname === '/Login') {
-        navigate('/dashboard', { replace: false });
+        navigate('/home', { replace: false });
       }
     }
     else{
