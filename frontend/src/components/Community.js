@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from "../components/Navbar";
 
 const CommunityForum = () => {
   const [selectedCommunity, setSelectedCommunity] = useState('General');
@@ -111,89 +112,93 @@ const CommunityForum = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="container mx-auto">
-        {/* Community Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Select Community</h1>
-          <div className="flex space-x-4">
-            {communities.map((community) => (
+    <div>
+      <Navbar />
+      {/* Added mt-16 to ensure content isn't hidden behind the navbar */}
+      <div className="min-h-screen bg-gray-100 p-8 mt-16">
+        <div className="container mx-auto">
+          {/* Community Section */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">Select Community</h1>
+            <div className="flex space-x-4">
+              {communities.map((community) => (
+                <button
+                  key={community}
+                  onClick={() => setSelectedCommunity(community)}
+                  className={`px-4 py-2 rounded-lg ${selectedCommunity === community ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'} transition duration-200`}
+                >
+                  {community}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Forum Section */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
+            <div className="mt-4">
+              <textarea
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
+                placeholder="What's on your mind?"
+                className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              ></textarea>
               <button
-                key={community}
-                onClick={() => setSelectedCommunity(community)}
-                className={`px-4 py-2 rounded-lg ${selectedCommunity === community ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'} transition duration-200`}
+                onClick={handleAddPost}
+                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
               >
-                {community}
+                Post
               </button>
-            ))}
+            </div>
           </div>
-        </div>
 
-        {/* Forum Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
-          <div className="mt-4">
-            <textarea
-              value={postContent}
-              onChange={(e) => setPostContent(e.target.value)}
-              placeholder="What's on your mind?"
-              className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            ></textarea>
-            <button
-              onClick={handleAddPost}
-              className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-            >
-              Post
-            </button>
+          {/* Posts and Comments */}
+          <div>
+            {posts.length > 0 ? (
+              posts.map((post, index) => (
+                <div key={post._id} className="bg-white p-4 mb-4 rounded-lg shadow">
+                  <div className="flex justify-between items-center">
+                    <p>{post.content}</p>
+                    <button
+                      onClick={() => handleDeletePost(post._id, index)}
+                      className="text-red-600 hover:text-red-800 transition duration-200"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <div className="mt-4">
+                    <textarea
+                      value={commentContent}
+                      onChange={(e) => setCommentContent(e.target.value)}
+                      placeholder="Write a comment..."
+                      className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    ></textarea>
+                    <button
+                      onClick={() => handleAddComment(post._id, index)}
+                      className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200"
+                    >
+                      Comment
+                    </button>
+                  </div>
+
+                  {/* Comments Section */}
+                  <div className="mt-4">
+                    {Array.isArray(post.comments) && post.comments.length > 0 ? (
+                      post.comments.map((comment, commentIndex) => (
+                        <div key={commentIndex} className="border-t border-gray-200 mt-2 pt-2">
+                          <p className="text-sm text-gray-600">{comment.content}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-gray-400">No comments yet.</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">No posts yet in this community. Be the first to post!</p>
+            )}
           </div>
-        </div>
-
-        {/* Posts and Comments */}
-        <div>
-          {posts.length > 0 ? (
-            posts.map((post, index) => (
-              <div key={post._id} className="bg-white p-4 mb-4 rounded-lg shadow">
-                <div className="flex justify-between items-center">
-                  <p>{post.content}</p>
-                  <button
-                    onClick={() => handleDeletePost(post._id, index)}
-                    className="text-red-600 hover:text-red-800 transition duration-200"
-                  >
-                    Delete
-                  </button>
-                </div>
-                <div className="mt-4">
-                  <textarea
-                    value={commentContent}
-                    onChange={(e) => setCommentContent(e.target.value)}
-                    placeholder="Write a comment..."
-                    className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                  ></textarea>
-                  <button
-                    onClick={() => handleAddComment(post._id, index)}
-                    className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200"
-                  >
-                    Comment
-                  </button>
-                </div>
-
-                {/* Comments Section */}
-                <div className="mt-4">
-                  {Array.isArray(post.comments) && post.comments.length > 0 ? (
-                    post.comments.map((comment, commentIndex) => (
-                      <div key={commentIndex} className="border-t border-gray-200 mt-2 pt-2">
-                        <p className="text-sm text-gray-600">{comment.content}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-sm text-gray-400">No comments yet.</p>
-                  )}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-gray-500">No posts yet in this community. Be the first to post!</p>
-          )}
         </div>
       </div>
     </div>
