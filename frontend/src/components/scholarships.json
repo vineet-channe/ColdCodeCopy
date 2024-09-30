@@ -1,0 +1,123 @@
+[
+    {
+      "id": 1,
+      "name": "National Merit Scholarship",
+      "state": "Maharashtra",
+      "class": "12th",
+      "caste": "General",
+      "gender": "Female",
+      "stipend": 20000,
+      "startDate": "2023-01-01",
+      "endDate": "2023-12-31",
+      "eligibility": "Merit-based"
+    },
+    {
+      "id": 2,
+      "name": "Sports Quota Scholarship",
+      "state": "Delhi",
+      "class": "UG",
+      "caste": "SC",
+      "gender": "Male",
+      "stipend": 15000,
+      "startDate": "2023-03-01",
+      "endDate": "2023-11-30",
+      "eligibility": "Sports quota"
+    },
+    {
+      "id": 3,
+      "name": "Engineering Scholarship",
+      "state": "Karnataka",
+      "class": "PG",
+      "caste": "OBC",
+      "gender": "Female",
+      "stipend": 25000,
+      "startDate": "2023-05-01",
+      "endDate": "2023-10-31",
+      "eligibility": "Merit-based"
+    },
+    {
+      "id": 4,
+      "name": "Need-based Scholarship",
+      "state": "Kerala",
+      "class": "12th",
+      "caste": "ST",
+      "gender": "Male",
+      "stipend": 30000,
+      "startDate": "2023-02-01",
+      "endDate": "2023-08-31",
+      "eligibility": "Need-based"
+    },
+    {
+      "id": 5,
+      "name": "Medical Studies Grant",
+      "state": "Tamil Nadu",
+      "class": "UG",
+      "caste": "General",
+      "gender": "Female",
+      "stipend": 50000,
+      "startDate": "2023-04-01",
+      "endDate": "2023-12-31",
+      "eligibility": "Merit-based"
+    },
+    {
+      "id": 6,
+      "name": "Arts Scholarship",
+      "state": "Rajasthan",
+      "class": "PG",
+      "caste": "EWS",
+      "gender": "Male",
+      "stipend": 12000,
+      "startDate": "2023-06-01",
+      "endDate": "2023-12-31",
+      "eligibility": "Merit-based"
+    },
+    {
+      "id": 7,
+      "name": "Minority Student Grant",
+      "state": "West Bengal",
+      "class": "UG",
+      "caste": "General",
+      "gender": "Female",
+      "stipend": 18000,
+      "startDate": "2023-07-01",
+      "endDate": "2023-09-30",
+      "eligibility": "Minority"
+    },
+    {
+      "id": 8,
+      "name": "International Study Aid",
+      "state": "Punjab",
+      "class": "PhD",
+      "caste": "OBC",
+      "gender": "Male",
+      "stipend": 45000,
+      "startDate": "2023-05-01",
+      "endDate": "2023-09-30",
+      "eligibility": "Merit-based"
+    },
+    {
+      "id": 9,
+      "name": "State-level Scholarship",
+      "state": "Haryana",
+      "class": "10th",
+      "caste": "ST",
+      "gender": "Female",
+      "stipend": 16000,
+      "startDate": "2023-02-15",
+      "endDate": "2023-06-30",
+      "eligibility": "State-level"
+    },
+    {
+      "id": 10,
+      "name": "Commerce Scholarship",
+      "state": "Uttar Pradesh",
+      "class": "UG",
+      "caste": "EWS",
+      "gender": "Female",
+      "stipend": 22000,
+      "startDate": "2023-01-15",
+      "endDate": "2023-07-31",
+      "eligibility": "Need-based"
+    }
+  ]
+  
