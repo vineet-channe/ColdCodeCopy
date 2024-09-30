@@ -3,19 +3,19 @@ import React from "react";
 const HomeHero = () => {
   const images = [
     {
-      title: "learn",
+      title: "Learn",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-learn.png?d=324x406",
       link: "https://unstop.com/courses",
     },
     {
-      title: "mentorships",
+      title: "Mentorships",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-mentorships.png?d=324x406",
       link: "https://unstop.com/mentor",
     },
     {
-      title: "compete",
+      title: "Courses",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-compete.png?d=324x406",
       link: "https://unstop.com/compete",
@@ -27,34 +27,37 @@ const HomeHero = () => {
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-24">
         <div className="relative">
           <h1 className="font-normal text-5xl lg:text-6xl mb-11 relative">
-            Connecting
+            Inspiring a
             <br />
             <strong className="font-bold text-6xl lg:text-7xl">
-              Talent, Colleges, Recruiters
+            Brighter Future
             </strong>
             <span className="absolute bottom-[-20px] left-0 w-2/5 h-[2px] bg-[#f2c034]"></span>
           </h1>
           <p className="font-normal text-2xl">
-            Explore opportunities from across the globe to learn, showcase
-            skills, gain CV points, & get hired by your dream company.
+          Unlocking a world of opportunities for children, helping them learn,
+          grow, and achieve their dreams through quality education and resources.
           </p>
         </div>
 
-        <div className="flex flex-col justify-center gap-5 w-[400px]"> 
+        <div className="flex flex-col justify-center gap-5 w-[400px]">
           {images.map((ele) => (
             <div
-              className="relative transition-transform transform hover:-translate-y-2" 
+              className="relative overflow-hidden rounded-lg transition-transform transform hover:-translate-y-2"
               key={ele.image}
             >
-              <span className="absolute top-3 left-3 font-semibold text-md capitalize z-10"> 
-                {ele.title}
-              </span>
-              <a href={ele.link}>
+              <a href={ele.link} className="block relative">
                 <img
                   src={ele.image}
                   alt={ele.title}
-                  className="w-full h-[150px] object-cover" 
+                  className="w-full h-[150px] object-cover transition-transform duration-300 ease-in-out"
                 />
+                {/* Blur effect on hover */}
+                <div className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
+                  <span className="text-white text-lg font-semibold z-10">
+                    {ele.title}
+                  </span>
+                </div>
               </a>
             </div>
           ))}
