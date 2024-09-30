@@ -20,11 +20,13 @@ const notebookRoutes = require('./routes/notebookRoutes');
 const chatbotRoutes = require('./routes/chatbotRoutes');
 const youtubeRoutes = require('./routes/youtubeRoutes');
 const authRoutes = require('./routes/authRoutes');
+const communityRoutes = require('./routes/community')
 
 app.use('/api/notebook', notebookRoutes);
 app.use('/api/generate', chatbotRoutes );
 app.use('/api/youtube', youtubeRoutes);
 app.use('/api/googleauth', authRoutes);
+app.use('/api/forum', communityRoutes);
 
 // Start the server
 app.listen(port, () => {
