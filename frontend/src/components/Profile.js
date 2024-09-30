@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import Navbar from './Navbar';
+import Popup from './Popup'; // Import the Popup component
 
 const communicationOptions = [
   { value: 'Video Call', label: 'Video Call' },
@@ -63,6 +64,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [popupVisible, setPopupVisible] = useState(false); // State for the popup
   const navigate = useNavigate();
 
   const userInfo = JSON.parse(localStorage.getItem('user-info'));
@@ -153,9 +155,13 @@ const UserProfile = () => {
     }
   };
 
+  const handleLookUpMentor = () => {
+    setPopupVisible(true); // Show the popup
+  };
+
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col">
-      <Navbar/>
+      <Navbar />
 
       <div className="flex-grow flex items-center justify-center py-12">
         <div className="flex w-full max-w-4xl bg-white shadow-md rounded-lg">
@@ -270,7 +276,7 @@ const UserProfile = () => {
                   required
                 />
               </div>
-              <div className="mb-6">
+              <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_communication">
                   Preferred Communication *
                 </label>
@@ -286,29 +292,37 @@ const UserProfile = () => {
                   required
                 />
               </div>
-              <button
-                type="submit"
-                className={`bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                disabled={loading}
-              >
-                {loading ? 'Loading...' : 'Update Profile'}
-              </button>
+
+              {error && <div className="text-red-500 mb-4">{error}</div>}
+              {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>}
+              
+              <div className="flex items-center justify-between mt-6">
+                <button
+                  type="submit"
+                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={loading}
+                >
+                  {loading ? 'Updating...' : 'Update Profile'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleLookUpMentor}
+                  className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Look Up Mentor
+                </button>
+              </div>
             </form>
-            {error && <p className="text-red-500 mt-4">{error}</p>}
-            {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
           </div>
-          <div className="flex-none w-1/3 bg-gray-100 rounded-lg flex flex-col items-center justify-center p-4">
-            <img
-              src={profileImage}
-              alt="Profile"
-              className="rounded-full h-32 w-32 object-cover border-2 border-cyan-500 mb-3"
-            />
-            <h3 className="mt-4 text-center text-xl font-semibold">{profileName}</h3>
+          <div className="w-1/3 p-6 flex flex-col items-center justify-center bg-gray-100">
+            <img src={profileImage} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
+            <h3 className="text-lg font-semibold">{profileName}</h3>
           </div>
         </div>
       </div>
+
+      {popupVisible && <Popup onClose={() => setPopupVisible(false)} />}
     </div>
   );
 };
