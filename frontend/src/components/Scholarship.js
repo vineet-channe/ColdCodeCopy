@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import scholarshipsData from "./scholarships.json";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Navbar from "./Navbar";
 
 const Scholarship = () => {
+  const navigate = useNavigate(); // Create navigate function
   const [filters, setFilters] = useState({
     state: "",
     class: "",
@@ -22,7 +24,7 @@ const Scholarship = () => {
     endDate: ""
   });
 
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState(scholarshipsData);
 
   const handleFilterChange = (e) => {
@@ -44,7 +46,6 @@ const Scholarship = () => {
     setFilters({ ...filters, stipendRange: value });
   };
 
-  // Handle search functionality
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -79,8 +80,9 @@ const Scholarship = () => {
       <Navbar />
       <div className="w-1/4 p-6 bg-white shadow-md">
         <h2 className="text-2xl font-bold mb-6">Filters</h2>
-  {/* State Filter */}
-  <div className="mb-4">
+        
+        {/* State Filter */}
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">State</label>
           <select name="state" onChange={handleFilterChange} className="mt-1 block w-full p-2 border rounded-md">
             <option value="">Select State</option>
@@ -247,61 +249,42 @@ const Scholarship = () => {
         >
           Reset Filters
         </button>
+
+        {/* Document Helper Button */}
+        <button
+          onClick={() => navigate("/query/incomecertificate")} // Navigate to the specified path
+          className="w-full bg-green-500 text-white py-2 rounded-md mt-4"
+        >
+          Document Helper
+        </button>
       </div>
 
+      <div className="flex-1 p-6">
+        <h2 className="text-2xl font-bold mb-4">Scholarships</h2>
 
-
-      {/* Results Display */}
-      <div className="flex-grow p-6">
-        <h2 className="text-2xl font-bold mb-6">Scholarship Results</h2>
-
-        {/* Search bar */}
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Search scholarships by title or description..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="w-full p-2 border rounded-md"
-          />
-        </div>
+        {/* Search Bar */}
+        <input
+          type="text"
+          placeholder="Search Scholarships..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="w-full p-2 mb-4 border rounded-md"
+        />
 
         {filteredResults.length > 0 ? (
-          <div className="list-disc pl-5">
-            {filteredResults.map((scholarship) => (
-              <div key={scholarship.id} className="mb-4 p-4 border border-gray-200 rounded">
-                <h3 className="font-semibold text-lg">{scholarship.title}</h3>
+          <ul>
+            {filteredResults.map((scholarship, index) => (
+              <li key={index} className="mb-4 p-4 border rounded-md">
+                <h3 className="text-lg font-semibold">{scholarship.title}</h3>
                 <p>{scholarship.description}</p>
-                <p>
-                  <strong>Stipend:</strong> ₹{scholarship.stipend}
-                </p>
-                <p>
-                  <strong>State:</strong> {scholarship.state}
-                </p>
-                <p>
-                  <strong>Class:</strong> {scholarship.class}
-                </p>
-                <p>
-                  <strong>Caste:</strong> {scholarship.caste}
-                </p>
-                <p>
-                  <strong>Eligibility:</strong> {scholarship.eligibility}
-                </p>
-
-                {/* Apply Button */}
-                <a
-                  href={scholarship.applyLink} // Assuming the scholarship data has an `applyLink` field
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-block bg-blue-500 text-white py-1 px-4 rounded-md"
-                >
-                  Apply
-                </a>
-              </div>
+                <p>Stipend: ₹{scholarship.stipend}</p>
+                <p>Eligibility: {scholarship.eligibility}</p>
+                <p>State: {scholarship.state}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <p>No scholarships match your filters.</p>
+          <p>No scholarships found.</p>
         )}
       </div>
     </div>

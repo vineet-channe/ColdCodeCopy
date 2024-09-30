@@ -3,22 +3,22 @@ import React from "react";
 const HomeHero = () => {
   const images = [
     {
-      title: "Learn",
+      title: "Courses",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-learn.png?d=324x406",
-      link: "https://unstop.com/courses",
+      link: "",
     },
     {
       title: "Mentorships",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-mentorships.png?d=324x406",
-      link: "https://unstop.com/mentor",
+      link: "http://localhost:3000/mentorship",
     },
     {
-      title: "Courses",
+      title: "Learn",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-compete.png?d=324x406",
-      link: "https://unstop.com/compete",
+      link: "http://localhost:3000/ytdashboard",
     },
   ];
 

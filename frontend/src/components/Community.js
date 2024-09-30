@@ -5,7 +5,7 @@ const CommunityForum = () => {
   const [selectedCommunity, setSelectedCommunity] = useState('General');
   const [posts, setPosts] = useState([]);
   const [postContent, setPostContent] = useState('');
-  const [commentContent, setCommentContent] = useState('');
+  const [commentContents, setCommentContents] = useState({}); // Use an object to manage comment inputs for each post
 
   const communities = ['General', 'Education', 'Coding', 'Art', 'Science'];
   const user = JSON.parse(localStorage.getItem('user-info'));
@@ -19,13 +19,21 @@ const CommunityForum = () => {
   // Fetch posts for the selected community
   useEffect(() => {
     fetchPosts();
-  }, [selectedCommunity, token]);
+  }, [selectedCommunity]);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/forum/getpost?community=${selectedCommunity}`);
+      const response = await fetch(`http://localhost:5000/api/forum/getpost?community=${selectedCommunity}`, {
+        headers: {
+          'Authorization': `Bearer ${token}` // Include token if needed
+        }
+      });
       const data = await response.json();
-      // Ensure each post has a comments array
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+      }
+
+      // Format posts
       const formattedPosts = data.map(post => ({
         ...post,
         comments: post.comments || [] // Initialize comments as an empty array if undefined
@@ -40,12 +48,11 @@ const CommunityForum = () => {
   const handleAddPost = async () => {
     if (postContent.trim()) {
       try {
-        console.log(postContent);
         const response = await fetch('http://localhost:5000/api/forum/post', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', // Add this line to specify JSON format
-            'Authorization': `Bearer ${token}` // If you have authorization, include the token here
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Include token if needed
           },
           body: JSON.stringify({
             content: postContent,
@@ -55,26 +62,25 @@ const CommunityForum = () => {
             email: email
           })
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to create post');
         }
-  
+
         const newPost = await response.json();
-        // Initialize comments as an empty array for the new post
-        newPost.comments = newPost.comments || [];
-        setPosts([...posts, newPost]);
+        newPost.comments = newPost.comments || []; // Initialize comments
+        setPosts((prevPosts) => [...prevPosts, newPost]); // Append new post to existing posts
         setPostContent(''); // Reset post content input
       } catch (error) {
         console.error('Error creating post:', error);
       }
     }
   };
-  
 
   // Handler for adding a comment
   const handleAddComment = async (postId, postIndex) => {
-    if (commentContent.trim()) {
+    const commentContent = commentContents[postId]; // Get the specific comment for the post
+    if (commentContent && commentContent.trim()) {
       try {
         const response = await fetch(`http://localhost:5000/api/forum/post/${postId}/comment`, {
           method: 'POST',
@@ -84,11 +90,12 @@ const CommunityForum = () => {
           },
           body: JSON.stringify({ content: commentContent })
         });
+
         const updatedPost = await response.json();
         const updatedPosts = [...posts];
         updatedPosts[postIndex] = updatedPost; // Replace the updated post
         setPosts(updatedPosts);
-        setCommentContent('');
+        setCommentContents((prev) => ({ ...prev, [postId]: '' })); // Reset comment input for the specific post
       } catch (error) {
         console.error('Error adding comment:', error);
       }
@@ -104,7 +111,7 @@ const CommunityForum = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      const updatedPosts = posts.filter((_, i) => i !== index);
+      const updatedPosts = posts.filter((_, i) => i !== index); // Remove deleted post
       setPosts(updatedPosts);
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -114,7 +121,6 @@ const CommunityForum = () => {
   return (
     <div>
       <Navbar />
-      {/* Added mt-16 to ensure content isn't hidden behind the navbar */}
       <div className="min-h-screen bg-gray-100 p-8 mt-16">
         <div className="container mx-auto">
           {/* Community Section */}
@@ -168,8 +174,8 @@ const CommunityForum = () => {
                   </div>
                   <div className="mt-4">
                     <textarea
-                      value={commentContent}
-                      onChange={(e) => setCommentContent(e.target.value)}
+                      value={commentContents[post._id] || ''} // Manage individual comment content
+                      onChange={(e) => setCommentContents((prev) => ({ ...prev, [post._id]: e.target.value }))}
                       placeholder="Write a comment..."
                       className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                     ></textarea>
