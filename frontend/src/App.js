@@ -14,6 +14,7 @@ import Community from './components/Community'
 import VideoCall from './components/VideoPage';
 import Home from './components/Home';
 import CommunityForum from './components/Community';
+import Mentorship from "./components/Mentorship";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,6 +43,7 @@ function App() {
         <Route path="/call/:callid" element={<PrivateRoute element={<VideoCall/>} />} />
         <Route path="*" element={<NotFound/>} />
         <Route path="/home" element={<Home/>} />
+        <Route path="/mentorship" element={<Mentorship/>} />
         <Route path="/video/:videoId" element={<PrivateRoute element={<Player/>} />} />
       </Routes>
     </BrowserRouter>
