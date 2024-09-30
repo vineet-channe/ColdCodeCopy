@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import Navbar from './Navbar';
 
 
 const Dashboard = () => {
@@ -12,10 +13,10 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchVideos();
-    
-  }, []);
+  // useEffect(() => {
+  //   fetchVideos();
+
+  // }, []);
 
   const fetchVideos = async (searchQuery = 'react tutorials') => {
     setLoading(true);
@@ -25,7 +26,7 @@ const Dashboard = () => {
         params: { q: searchQuery }
       });
 
-     
+
       if (response.data && Array.isArray(response.data)) {
         setVideos(response.data);
       } else {
@@ -40,10 +41,6 @@ const Dashboard = () => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('user-info');
-    navigate('/Login');
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -54,43 +51,30 @@ const Dashboard = () => {
     navigate(`/video/${videoId}`);
   };
 
-  const user = JSON.parse(localStorage.getItem('user-info'));
-
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col">
-      <header className="bg-white shadow-lg shadow-cyan-100 py-2 top-0 fixed w-full z-10 border-b-1 border-cyan-300 bg-gradient-to-t">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-800">Sarthi</h1>
-          <form onSubmit={handleSearch} className="flex-grow max-w-xl mx-4">
-            <div className="flex items-center bg-gray-100 rounded-full">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search for videos..."
-                className="flex-grow px-4 py-2 border-none rounded-l-full bg-gray-100 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="p-2 bg-cyan-300 rounded-r-full hover:bg-gray-400 transition duration-300"
-              >
-                <FontAwesomeIcon icon={faSearch} />
-              </button>
-            </div>
-          </form>
-          <div className='flex flex-row'>
-            <img src={user.image} alt="User Profile" className="rounded-full h-9 my-auto object-cover" />
-
+      <div>
+      <Navbar />
+        </div>
+      <div className='mt-24 flex justify-center'>
+        <form onSubmit={handleSearch} className="flex-grow max-w-xl mx-4">
+          <div className="flex items-center bg-gray-100 rounded-full">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for videos..."
+              className="flex-grow px-4 py-2 border-none rounded-l-full bg-gray-100 focus:outline-none"
+            />
             <button
-              onClick={logout}
-              className="px-4 py-2 text-cyan-400 text-xl  rounded-full hover:text-cyan-600 transition duration-300"
+              type="submit"
+              className="p-2 bg-cyan-300 rounded-r-full hover:bg-gray-400 transition duration-300"
             >
-              <FontAwesomeIcon icon={faRightFromBracket} className="text-xl" />
+              <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
-
-        </div>
-      </header>
+        </form>
+      </div>
 
       <div className="flex-grow container mx-auto py-12 flex flex-col items-center">
         {loading && <p className="mt-4 text-gray-600">Loading videos...</p>}

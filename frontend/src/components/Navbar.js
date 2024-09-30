@@ -1,45 +1,52 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+   
+    const navigate = useNavigate();
 
-    const handleLinkClick = () => {
-        setIsOpen(false);
-    };
+
+    const logout = () => {
+        localStorage.removeItem('user-info');
+        navigate('/Login');
+      };
+    
+    
+  const user = JSON.parse(localStorage.getItem('user-info'));
+  const img = user.image
+
 
     return (
-        <nav className="fixed w-full z-10 bg-black">
-            <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                <div className="flex items-center">
-                    <span className="text-white text-xl font-bold sm:block">Sarthi</span>
+        <div>
+            <header className="bg-white shadow-lg shadow-cyan-100 py-2 top-0 fixed w-full z-10 border-b-1 border-cyan-300 bg-gradient-to-t">
+                <div className="container mx-auto flex justify-between items-center">
+                    <h1 className="text-xl font-bold text-gray-800">Sarthi</h1>
+                    
+                    <div className="sm:hidden md:flex space-x-10 mx-10">
+                        <Link to="/dashboard" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Home</Link>
+                        <Link to="/about" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Scholarship</Link>
+                        <Link to="/pricing" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Community</Link>
+                        <Link to="/contact" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Contact</Link>
+                    </div>
+
+                    <div className="flex flex-row">
+                        <button onClick={() => { navigate('./profile') }}>
+                            <img src={img} className="rounded-full h-9 my-auto object-cover" alt="Profile" />
+                        </button>
+                        <button
+                            onClick={logout}
+                            className="px-4 py-2 text-cyan-400 text-xl rounded-full hover:text-cyan-600 transition duration-300"
+                        >
+                            <FontAwesomeIcon icon={faRightFromBracket} className="text-xl" />
+                        </button>
+                    </div>
                 </div>
-                <div className="sm:hidden md:flex space-x-10 mx-10">
-                    <Link to="/dashboard" className="text-white hover:text-gray-300 hover:scale-105 inline-block transform duration-200" >Home</Link>
-                    <Link to="/about" className="text-white hover:text-gray-300 hover:scale-105 inline-block transform duration-200" >About Us</Link>
-                    <Link to="/pricing" className="text-white hover:text-gray-300 hover:scale-105 inline-block transform duration-200" >Pricing</Link>
-                    <Link to="/contact" className="text-white hover:text-gray-300 hover:scale-105 inline-block transform duration-200" >Contact</Link>
-                </div>
-                <div className="hidden sm:block">
-                    <button
-                        className="text-white focus:outline-none"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
-                    </button>
-                </div>
-            </div>
-            {isOpen && (
-                <div className="absolute right-0 mt-4 bg-black p-4 h-screen md:hidden w-screen">
-                    <Link to="/dashboard" className="block px-4 py-2 text-white hover:text-gray-300" onClick={handleLinkClick}>Home</Link>
-                    <Link to="/about" className="block px-4 py-2 text-white hover:text-gray-300" onClick={handleLinkClick}>About Us</Link>
-                    <Link to="/pricing" className="block px-4 py-2 text-white hover:text-gray-300" onClick={handleLinkClick}>Pricing</Link>
-                    <Link to="/contact" className="block px-4 py-2 text-white hover:text-gray-300" onClick={handleLinkClick}>Contact</Link>
-                </div>
-            )}
-        </nav>
+            </header>
+
+            
+        </div>
     );
 }
 
