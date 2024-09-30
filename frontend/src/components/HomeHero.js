@@ -9,12 +9,6 @@ const HomeHero = () => {
       link: "https://unstop.com/courses",
     },
     {
-      title: "practice",
-      image:
-        "https://cdn.unstop.com/uploads/images/home/home-hero-practice.png?d=324x406",
-      link: "https://unstop.com/practice",
-    },
-    {
       title: "mentorships",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-mentorships.png?d=324x406",
@@ -25,18 +19,6 @@ const HomeHero = () => {
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-compete.png?d=324x406",
       link: "https://unstop.com/compete",
-    },
-    {
-      title: "jobs",
-      image:
-        "https://cdn.unstop.com/uploads/images/home/home-hero-jobs.png?d=324x406",
-      link: "https://unstop.com/job-portal",
-    },
-    {
-      title: "blogs",
-      image:
-        "https://cdn.unstop.com/uploads/images/home/home-hero-blogs.png?d=324x406",
-      link: "https://unstop.com/blog",
     },
   ];
 
@@ -58,20 +40,20 @@ const HomeHero = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 w-[550px]">
+        <div className="flex flex-col justify-center gap-5 w-[400px]"> 
           {images.map((ele) => (
             <div
-              className="relative w-1/3 transition-transform transform hover:-translate-y-4"
+              className="relative transition-transform transform hover:-translate-y-2" 
               key={ele.image}
             >
-              <span className="absolute top-5 left-5 font-semibold text-lg capitalize z-10">
+              <span className="absolute top-3 left-3 font-semibold text-md capitalize z-10"> 
                 {ele.title}
               </span>
               <a href={ele.link}>
                 <img
                   src={ele.image}
                   alt={ele.title}
-                  className="w-full"
+                  className="w-full h-[150px] object-cover" 
                 />
               </a>
             </div>
@@ -80,7 +62,7 @@ const HomeHero = () => {
       </div>
 
       {/* Custom Background Elements */}
-       </section>
+    </section>
   );
 };
 
