@@ -8,6 +8,9 @@ import Player from './components/Player';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
+import Profile from './components/Profile';
+import Community from './components/Community';
+import Scholarship from './components/Scholarship';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
