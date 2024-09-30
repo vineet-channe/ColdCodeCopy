@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
+import Navbar from './Navbar';
 
 const communicationOptions = [
   { value: 'Video Call', label: 'Video Call' },
@@ -154,11 +155,7 @@ const UserProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-200 flex flex-col">
-      <header className="bg-white shadow-lg shadow-cyan-100 py-2 top-0 fixed w-full z-10 border-b-1 border-cyan-300 bg-gradient-to-t">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-800">Sarthi</h1>
-        </div>
-      </header>
+      <Navbar/>
 
       <div className="flex-grow flex items-center justify-center py-12">
         <div className="flex w-full max-w-4xl bg-white shadow-md rounded-lg">

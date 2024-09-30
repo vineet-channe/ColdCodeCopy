@@ -8,9 +8,9 @@ import Player from './components/Player';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
-import Profile from './components/Profile';
-import Community from './components/Community';
+import UserProfile from './components/Profile';
 import Scholarship from './components/Scholarship';
+import Community from './components/Community'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,9 +33,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<GoogleAuthWrapper />} />
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard/>} />} />
-        {/* <Route path="/community" element={<PrivateRoute element={<Community/>} />} />
+        <Route path="/community" element={<PrivateRoute element={<Community/>} />} />
         <Route path="/scholarship" element={<PrivateRoute element={<Scholarship/>} />} />
-        <Route path="/profile" element={<PrivateRoute element={<Profile/>} />} /> */}
+        <Route path="/profile" element={<PrivateRoute element={<UserProfile/>} />} />
         
         <Route path="*" element={<NotFound/>} />
         <Route path="/video/:videoId" element={<PrivateRoute element={<Player/>} />} />
