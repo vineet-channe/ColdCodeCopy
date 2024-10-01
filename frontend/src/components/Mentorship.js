@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "../components/Navbar";
-import Popup from "../components/Popup"; // Import the Popup component
 
 const mentors = [
-  // Existing mentors data
+
   {
     name: "Kannav Mahajan",
     position: "AVP of Revenue at Emeritus | Former Management Consultant",
@@ -68,7 +67,6 @@ const mentors = [
     ratingColor: "text-yellow-500"
   },
 ];
-
 // "Click for more mentors" Card component
 const MoreMentorsCard = () => {
   return (
@@ -86,33 +84,56 @@ const MoreMentorsCard = () => {
   );
 };
 
-const MentorCard = ({ mentor }) => {
+// Updated MentorCard component to handle both static and API mentor data
+const MentorCard = ({ mentor, isApiMentor = false, onConnectClick }) => {
   return (
     <div className={`w-full md:w-1/3 lg:w-1/4 p-4`}>
       <div className="bg-white rounded-lg shadow-md p-6 min-h-[320px] flex flex-col justify-between">
-        <div className={`relative ${mentor.badgeColor} rounded-md p-4`}>
+        <div className={`relative ${mentor.badgeColor || 'bg-gray-100'} rounded-md p-4`}>
           <img
             className="w-16 h-16 rounded-full mx-auto"
-            src={mentor.img}
+            src={mentor.img || "https://via.placeholder.com/150"}
             alt={mentor.name}
           />
           <div className="absolute top-2 right-2">
             <span className="bg-yellow-300 text-xs font-bold py-1 px-2 rounded-lg">
-              {mentor.availability}
+              {mentor.availability || "Available"}
             </span>
           </div>
         </div>
         <h3 className="mt-4 text-center font-semibold text-lg">{mentor.name}</h3>
-        <p className="text-sm text-center text-gray-600 mt-2">{mentor.position}</p>
-        <div className={`flex items-center justify-center mt-4 ${mentor.ratingColor}`}>
-          <span className="font-bold">{mentor.rating} ⭐</span>
+        <p className="text-sm text-center text-gray-600 mt-2">{mentor.position || mentor.background_industry}</p>
+        <div className="flex items-center justify-center mt-4 text-yellow-500">
+          <span className="font-bold">{mentor.rating || 'N/A'} ⭐</span>
         </div>
+
+        {/* Additional Info: Render only for API-generated mentors */}
+        {isApiMentor && (
+          <div className="mt-4">
+            <p className="text-sm text-gray-700"><strong>Expertise:</strong> {mentor.skills_expertise || 'N/A'}</p>
+            <p className="text-sm text-gray-700"><strong>Availability:</strong> {mentor.availability || 'N/A'}</p>
+            <p className="text-sm text-gray-700"><strong>Industry:</strong> {mentor.background_industry || 'N/A'}</p>
+            <p className="text-sm text-gray-700"><strong>Languages:</strong> {mentor.languages ? mentor.languages.join(', ') : 'N/A'}</p>
+            <p className="text-sm text-gray-700"><strong>Communication Preferences:</strong> {mentor.communication_preferences ? mentor.communication_preferences.join(', ') : 'N/A'}</p>
+            
+            {/* Connect Button */}
+            <div className="flex justify-center mt-4">
+              <button
+                className="bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors duration-300"
+                onClick={() => onConnectClick(mentor._id)} // Trigger connect action on click
+              >
+                Connect
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 const user = JSON.parse(localStorage.getItem('user-info'));
+
 // "Mentor Connect" button functionality
 const MentorConnectButton = ({ onConnectClick }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -131,8 +152,7 @@ const MentorConnectButton = ({ onConnectClick }) => {
       });
 
       const data = await response.json();
-      console.log(data)
-      setResponseMessage(data.message || "Request sent successfully");
+      onConnectClick(data); // Pass the fetched data to the parent component
     } catch (error) {
       setResponseMessage("Error: Could not send request.");
     } finally {
@@ -144,10 +164,10 @@ const MentorConnectButton = ({ onConnectClick }) => {
     <div className="flex justify-center mt-8">
       <button
         className="bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600 transition-colors duration-300"
-        onClick={handleConnectClick} // Call the passed function instead
+        onClick={handleConnectClick}
         disabled={isLoading}
       >
-        {isLoading ? "Sending..." : "Mentor Connect"}
+        {isLoading ? "Sending..." : "Mentor Match"}
       </button>
       {responseMessage && (
         <p className="text-center text-green-600 font-semibold mt-4">
@@ -159,20 +179,15 @@ const MentorConnectButton = ({ onConnectClick }) => {
 };
 
 const MentorGrid = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage Popup visibility
+  const [fetchedMentors, setFetchedMentors] = useState([]); // State to store fetched mentors
 
-  const handleConnectClick = () => {
-    setIsPopupOpen(true); // Open the Popup
-  };
-
-  const closePopup = () => {
-    setIsPopupOpen(false); // Close the Popup
+  const handleConnectClick = (mentorsData) => {
+    setFetchedMentors(mentorsData); // Store the fetched mentors in state
   };
 
   return (
     <div>
       <NavBar />
-      {/* Add margin-top to the container to avoid the navbar overlap */}
       <div className="container mx-auto py-8 mt-16">
         <h2 className="text-2xl font-bold text-center mb-6">Top Mentors</h2>
         <div className="flex flex-wrap -mx-4">
@@ -184,10 +199,14 @@ const MentorGrid = () => {
         </div>
         {/* Add the Mentor Connect button */}
         <MentorConnectButton onConnectClick={handleConnectClick} />
+        
+        {/* Display fetched mentor data */}
+        <div className="flex flex-wrap -mx-4 mt-8">
+          {fetchedMentors.map((mentor, index) => (
+            <MentorCard key={mentor._id || index} mentor={mentor} isApiMentor={true} />
+          ))}
+        </div>
       </div>
-
-      {/* Include the Popup component */}
-      {isPopupOpen && <Popup onClose={closePopup} />}
     </div>
   );
 };
