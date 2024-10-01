@@ -22,7 +22,7 @@ const documents = [
     description: "To be issued by the educational institution.",
     path: "/query/bonafidecertificate",
   },
-  // Add more document objects as needed
+ 
 ];
 
 const Query = () => {

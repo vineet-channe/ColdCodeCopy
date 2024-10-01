@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const HomeHero = () => {
   const images = [
@@ -6,7 +6,7 @@ const HomeHero = () => {
       title: "Courses",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-learn.png?d=324x406",
-      link: "courses", // Use a string identifier for scrolling
+      link: "courses",
     },
     {
       title: "Mentorships",
@@ -23,15 +23,15 @@ const HomeHero = () => {
   ];
 
   const handleLinkClick = (e, link) => {
-    e.preventDefault(); // Prevent default anchor behavior
+    e.preventDefault();
     if (link === "courses") {
       window.scrollBy({
-        top: 800, // Adjust this value to scroll down by a specific number of pixels
+        top: 800,
         left: 0,
-        behavior: "smooth", // Smooth scroll
+        behavior: "smooth",
       });
     } else {
-      window.location.href = link; // Navigate to external link
+      window.location.href = link;
     }
   };
 
@@ -62,7 +62,7 @@ const HomeHero = () => {
               <a
                 href={ele.link}
                 className="block relative"
-                onClick={(e) => handleLinkClick(e, ele.link)} // Add click handler
+                onClick={(e) => handleLinkClick(e, ele.link)}
               >
                 <img
                   src={ele.image}
@@ -80,7 +80,6 @@ const HomeHero = () => {
         </div>
       </div>
 
-      {/* Additional sections or content can be added here */}
     </section>
   );
 };

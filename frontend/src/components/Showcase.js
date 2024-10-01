@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules"; // Make sure you're importing from "swiper"
+import { Autoplay } from "swiper/modules";
 import { Pagination } from "swiper/modules";
 
 const Showcase = ({ type }) => {
@@ -18,29 +18,27 @@ const Showcase = ({ type }) => {
 
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
-  // Handle window resize event
   useEffect(() => {
     const handleResize = () => setWindowSize(window.innerWidth);
     window.addEventListener("resize", handleResize);
     
-    // Cleanup event listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <section className={`relative mb-20 ${type}-showcase`}>
       <div className="flex justify-center">
-        <div className="relative container max-w-[1200px]"> {/* Set a max-width for better centering */}
+        <div className="relative container max-w-[1200px]">
           <Swiper
             spaceBetween={1}
             slidesPerView={windowSize <= 1150 ? 1 : 2}
             pagination={{ clickable: true }}
             autoplay={{
               delay: 3500,
-              disableOnInteraction: false, // Keeps autoplay active after interaction
+              disableOnInteraction: false, 
             }}
             loop={true}
-            modules={[Autoplay, Pagination]} // Ensure modules are imported correctly
+            modules={[Autoplay, Pagination]}
             speed={800}
           >
             {banners.map((ele, i) => (

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import scholarshipsData from "./scholarships.json";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Navbar from "./Navbar";
 
 const Scholarship = () => {
-  const navigate = useNavigate(); // Create navigate function
+  const navigate = useNavigate(); 
   const [filters, setFilters] = useState({
     state: "",
     class: "",
@@ -81,18 +81,16 @@ const Scholarship = () => {
       <div className="w-1/4 p-6 bg-white shadow-md">
         <h2 className="text-2xl font-bold mb-6">Filters</h2>
         
-        {/* State Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">State</label>
           <select name="state" onChange={handleFilterChange} className="mt-1 block w-full p-2 border rounded-md">
             <option value="">Select State</option>
             <option value="Maharashtra">Maharashtra</option>
             <option value="Delhi">Delhi</option>
-            {/* Add more states as needed */}
+
           </select>
         </div>
 
-        {/* Class Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Class</label>
           <select name="class" onChange={handleFilterChange} className="mt-1 block w-full p-2 border rounded-md">
@@ -101,11 +99,9 @@ const Scholarship = () => {
             <option value="12th">12th</option>
             <option value="UG">UG</option>
             <option value="PG">PG</option>
-            {/* Add more classes as needed */}
           </select>
         </div>
 
-        {/* Caste Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Caste</label>
           <select name="caste" onChange={handleFilterChange} className="mt-1 block w-full p-2 border rounded-md">
@@ -114,11 +110,9 @@ const Scholarship = () => {
             <option value="SC">SC</option>
             <option value="ST">ST</option>
             <option value="OBC">OBC</option>
-            {/* Add more caste categories as needed */}
           </select>
         </div>
 
-        {/* Stipend Range Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Stipend Range</label>
           <Slider
@@ -133,7 +127,6 @@ const Scholarship = () => {
           <p>Selected Range: ₹{filters.stipendRange[0]} - ₹{filters.stipendRange[1]}</p>
         </div>
 
-        {/* Gender Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Gender</label>
           <div className="flex">
@@ -158,7 +151,6 @@ const Scholarship = () => {
           </div>
         </div>
 
-        {/* Eligibility Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Eligibility</label>
           <div>
@@ -189,7 +181,6 @@ const Scholarship = () => {
           </div>
         </div>
 
-        {/* Age Range Filter */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Age Range</label>
           <Slider
@@ -203,7 +194,6 @@ const Scholarship = () => {
           <p>Selected Age Range: {filters.ageRange[0]} - {filters.ageRange[1]} years</p>
         </div>
 
-        {/* Study Abroad Option */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             <input
@@ -215,7 +205,6 @@ const Scholarship = () => {
           </label>
         </div>
 
-        {/* Application Fee Option */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             <input
@@ -227,7 +216,6 @@ const Scholarship = () => {
           </label>
         </div>
 
-        {/* Reset Filters Button */}
         <button
           onClick={() => setFilters({
             state: "",
@@ -250,9 +238,8 @@ const Scholarship = () => {
           Reset Filters
         </button>
 
-        {/* Document Helper Button */}
         <button
-          onClick={() => navigate("/query/")} // Navigate to the specified path
+          onClick={() => navigate("/query/")}
           className="w-full bg-green-500 text-white py-2 rounded-md mt-4"
         >
           Document Helper
@@ -262,7 +249,6 @@ const Scholarship = () => {
       <div className="flex-1 p-6">
         <h2 className="text-2xl font-bold mb-4">Scholarships</h2>
 
-        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search Scholarships..."

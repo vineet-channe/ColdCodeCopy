@@ -13,10 +13,10 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetchVideos();
+  useEffect(() => {
+    fetchVideos();
 
-  // }, []);
+  }, []);
 
   const fetchVideos = async (searchQuery = 'react tutorials') => {
     setLoading(true);

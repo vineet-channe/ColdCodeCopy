@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import Navbar from './Navbar';
-import Popup from './Popup'; // Import the Popup component
+import Popup from './Popup'; 
 
 const communicationOptions = [
   { value: 'Video Call', label: 'Video Call' },
@@ -69,7 +69,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [popupVisible, setPopupVisible] = useState(false); // State for the popup
+  const [popupVisible, setPopupVisible] = useState(false);
   const navigate = useNavigate();
 
 
@@ -160,7 +160,7 @@ const UserProfile = () => {
   };
 
   const handleLookUpMentor = () => {
-    setPopupVisible(true); // Show the popup
+    setPopupVisible(true);
   };
 
   return (
@@ -169,17 +169,16 @@ const UserProfile = () => {
   
       <div className="flex-grow flex items-center justify-center py-12">
         <div className="flex w-4/5 max-w-6xl bg-white shadow-md rounded-lg">
-          {/* Profile Picture Section */}
+   
           <div className="w-1/4 p-6 flex flex-col items-center justify-center border-r-2 bg-white">
             <img src={profileImage} alt="Profile" className="w-20 h-20 rounded-full mb-4" />
             <h3 className="text-lg font-semibold">{profileName}</h3>
           </div>
   
-          {/* Profile Form Section */}
           <div className="w-3/4 p-6 max-h-screen">
             
             <form onSubmit={handleSubmit} className="h-full flex flex-wrap gap-4">
-              {/* Name and Phone Number */}
+        
               <div className="w-full flex items-center">
                 <div className="w-1/2 pr-2">
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
@@ -213,7 +212,6 @@ const UserProfile = () => {
                 </div>
               </div>
   
-              {/* Age */}
               <div className="w-full flex items-center">
                 <div className="w-full
                  pr-2">
@@ -247,7 +245,6 @@ const UserProfile = () => {
               </div>
               </div>
   
-              {/* Academic Interests and Career Aspirations */}
               <div className="w-full flex">
                 <div className="w-1/2 pr-2">
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="academic_interests">
@@ -282,7 +279,6 @@ const UserProfile = () => {
                 </div>
               </div>
   
-              {/* Preferred Communication and Languages */}
               <div className="w-full flex">
                 <div className="w-1/2 pr-2">
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preferred_communication">
@@ -317,7 +313,6 @@ const UserProfile = () => {
                 </div>
               </div>
   
-              {/* Submit Button */}
               <div className="flex justify-end mt-4 w-full">
                 <button
                   type="submit"
@@ -332,7 +327,6 @@ const UserProfile = () => {
             {error && <p className="text-red-500 mt-4">{error}</p>}
             {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
   
-            {/* Popup for mentor lookup */}
             {popupVisible && <Popup onClose={() => setPopupVisible(false)} />} 
           </div>
         </div>

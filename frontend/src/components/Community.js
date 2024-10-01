@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
-import Polls from './Polls'; // Import the Polls component
+import Polls from './Polls'; 
 
 const CommunityForum = () => {
   const [selectedCommunity, setSelectedCommunity] = useState('General');
   const [posts, setPosts] = useState([]);
   const [postContent, setPostContent] = useState('');
-  const [commentContents, setCommentContents] = useState({}); // Use an object to manage comment inputs for each post
+  const [commentContents, setCommentContents] = useState({});
 
   const communities = ['General', 'Education', 'Coding', 'Art', 'Science'];
   const user = JSON.parse(localStorage.getItem('user-info'));
@@ -14,10 +14,8 @@ const CommunityForum = () => {
   const name = user.name;
   const email = user.email;
 
-  // Fetch the token from localStorage
   const token = localStorage.getItem('token');
 
-  // Fetch posts for the selected community
   useEffect(() => {
     fetchPosts();
   }, [selectedCommunity]);
@@ -26,7 +24,7 @@ const CommunityForum = () => {
     try {
       const response = await fetch(`http://localhost:5000/api/forum/getpost?community=${selectedCommunity}`, {
         headers: {
-          'Authorization': `Bearer ${token}` // Include token if needed
+          'Authorization': `Bearer ${token}`
         }
       });
       const data = await response.json();
@@ -37,7 +35,7 @@ const CommunityForum = () => {
       // Format posts
       const formattedPosts = data.map(post => ({
         ...post,
-        comments: post.comments || [] // Initialize comments as an empty array if undefined
+        comments: post.comments || [] 
       }));
       setPosts(formattedPosts);
     } catch (error) {
@@ -45,7 +43,6 @@ const CommunityForum = () => {
     }
   };
 
-  // Handler for adding a post
   const handleAddPost = async () => {
     if (postContent.trim()) {
       try {
@@ -53,7 +50,7 @@ const CommunityForum = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Include token if needed
+            'Authorization': `Bearer ${token}` 
           },
           body: JSON.stringify({
             content: postContent,
@@ -69,18 +66,17 @@ const CommunityForum = () => {
         }
 
         const newPost = await response.json();
-        newPost.comments = newPost.comments || []; // Initialize comments
-        setPosts((prevPosts) => [...prevPosts, newPost]); // Append new post to existing posts
-        setPostContent(''); // Reset post content input
+        newPost.comments = newPost.comments || []; 
+        setPosts((prevPosts) => [...prevPosts, newPost]);
+        setPostContent('');
       } catch (error) {
         console.error('Error creating post:', error);
       }
     }
   };
 
-  // Handler for adding a comment
   const handleAddComment = async (postId, postIndex) => {
-    const commentContent = commentContents[postId]; // Get the specific comment for the post
+    const commentContent = commentContents[postId];
     if (commentContent && commentContent.trim()) {
       try {
         const response = await fetch(`http://localhost:5000/api/forum/post/${postId}/comment`, {
@@ -94,16 +90,15 @@ const CommunityForum = () => {
 
         const updatedPost = await response.json();
         const updatedPosts = [...posts];
-        updatedPosts[postIndex] = updatedPost; // Replace the updated post
+        updatedPosts[postIndex] = updatedPost;
         setPosts(updatedPosts);
-        setCommentContents((prev) => ({ ...prev, [postId]: '' })); // Reset comment input for the specific post
+        setCommentContents((prev) => ({ ...prev, [postId]: '' })); 
       } catch (error) {
         console.error('Error adding comment:', error);
       }
     }
   };
 
-  // Handler for deleting a post
   const handleDeletePost = async (postId, index) => {
     try {
       await fetch(`http://localhost:5000/api/forum/post/${postId}`, {
@@ -112,7 +107,7 @@ const CommunityForum = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      const updatedPosts = posts.filter((_, i) => i !== index); // Remove deleted post
+      const updatedPosts = posts.filter((_, i) => i !== index);
       setPosts(updatedPosts);
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -123,7 +118,7 @@ const CommunityForum = () => {
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <div className="container mx-auto p-8 mt-16">
-        {/* Community Section */}
+        
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">Select Community</h1>
           <div className="flex space-x-4">
@@ -139,10 +134,8 @@ const CommunityForum = () => {
           </div>
         </div>
 
-        {/* Polls Section */}
-        <Polls /> {/* Add the Polls component here */}
+        <Polls /> 
 
-        {/* Forum Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
           <div className="mt-4">
@@ -161,7 +154,6 @@ const CommunityForum = () => {
           </div>
         </div>
 
-        {/* Posts and Comments */}
         <div>
           {posts.length > 0 ? (
             posts.map((post, index) => (
@@ -177,7 +169,7 @@ const CommunityForum = () => {
                 </div>
                 <div className="mt-4">
                   <textarea
-                    value={commentContents[post._id] || ''} // Manage individual comment content
+                    value={commentContents[post._id] || ''} 
                     onChange={(e) => setCommentContents((prev) => ({ ...prev, [post._id]: e.target.value }))}
                     placeholder="Write a comment..."
                     className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -190,7 +182,6 @@ const CommunityForum = () => {
                   </button>
                 </div>
 
-                {/* Comments Section */}
                 <div className="mt-4">
                   {Array.isArray(post.comments) && post.comments.length > 0 ? (
                     post.comments.map((comment, commentIndex) => (

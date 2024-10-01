@@ -84,7 +84,6 @@ const MoreMentorsCard = () => {
   );
 };
 
-// Updated MentorCard component to handle both static and API mentor data
 const MentorCard = ({ mentor, isApiMentor = false, onConnectClick }) => {
   return (
     <div className={`w-full md:w-1/3 lg:w-1/4 p-4`}>
@@ -107,7 +106,6 @@ const MentorCard = ({ mentor, isApiMentor = false, onConnectClick }) => {
           <span className="font-bold">{mentor.rating || 'N/A'} ⭐</span>
         </div>
 
-        {/* Additional Info: Render only for API-generated mentors */}
         {isApiMentor && (
           <div className="mt-4">
             <p className="text-sm text-gray-700"><strong>Expertise:</strong> {mentor.skills_expertise || 'N/A'}</p>
@@ -116,11 +114,10 @@ const MentorCard = ({ mentor, isApiMentor = false, onConnectClick }) => {
             <p className="text-sm text-gray-700"><strong>Languages:</strong> {mentor.languages ? mentor.languages.join(', ') : 'N/A'}</p>
             <p className="text-sm text-gray-700"><strong>Communication Preferences:</strong> {mentor.communication_preferences ? mentor.communication_preferences.join(', ') : 'N/A'}</p>
             
-            {/* Connect Button */}
             <div className="flex justify-center mt-4">
               <button
                 className="bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors duration-300"
-                onClick={() => onConnectClick(mentor._id)} // Trigger connect action on click
+                onClick={() => onConnectClick(mentor._id)}
               >
                 Connect
               </button>
@@ -134,25 +131,24 @@ const MentorCard = ({ mentor, isApiMentor = false, onConnectClick }) => {
 
 const user = JSON.parse(localStorage.getItem('user-info'));
 
-// "Mentor Connect" button functionality
 const MentorConnectButton = ({ onConnectClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
   const handleConnectClick = async () => {
     setIsLoading(true);
-    setResponseMessage(""); // Clear previous messages
+    setResponseMessage("");
     try {
       const response = await fetch("http://localhost:5000/api/mentor/connect", {
-        method: "POST", // Change to POST request
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: user.email }), // Send email in body
+        body: JSON.stringify({ email: user.email }),
       });
 
       const data = await response.json();
-      onConnectClick(data); // Pass the fetched data to the parent component
+      onConnectClick(data);
     } catch (error) {
       setResponseMessage("Error: Could not send request.");
     } finally {
@@ -179,10 +175,10 @@ const MentorConnectButton = ({ onConnectClick }) => {
 };
 
 const MentorGrid = () => {
-  const [fetchedMentors, setFetchedMentors] = useState([]); // State to store fetched mentors
+  const [fetchedMentors, setFetchedMentors] = useState([]);
 
   const handleConnectClick = (mentorsData) => {
-    setFetchedMentors(mentorsData); // Store the fetched mentors in state
+    setFetchedMentors(mentorsData);
   };
 
   return (
@@ -194,13 +190,11 @@ const MentorGrid = () => {
           {mentors.map((mentor, index) => (
             <MentorCard key={index} mentor={mentor} />
           ))}
-          {/* Add the "Click for more mentors" card */}
+   
           <MoreMentorsCard />
         </div>
-        {/* Add the Mentor Connect button */}
         <MentorConnectButton onConnectClick={handleConnectClick} />
         
-        {/* Display fetched mentor data */}
         <div className="flex flex-wrap -mx-4 mt-8">
           {fetchedMentors.map((mentor, index) => (
             <MentorCard key={mentor._id || index} mentor={mentor} isApiMentor={true} />

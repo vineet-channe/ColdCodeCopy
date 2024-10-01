@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Polls = () => {
-  const [pollResponses, setPollResponses] = useState({}); // To store user responses
+  const [pollResponses, setPollResponses] = useState({});
 
   const polls = [
     {
@@ -24,7 +24,7 @@ const Polls = () => {
   const handleVote = (pollId, option) => {
     setPollResponses((prev) => ({
       ...prev,
-      [pollId]: option // Store the selected option for the poll
+      [pollId]: option 
     }));
   };
 
@@ -32,7 +32,6 @@ const Polls = () => {
     const selectedOption = pollResponses[pollId];
     if (selectedOption) {
       try {
-        // Replace with your API endpoint to submit the vote
         await fetch(`http://localhost:5000/api/forum/polls/${pollId}/vote`, {
           method: 'POST',
           headers: {

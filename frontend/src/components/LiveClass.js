@@ -13,14 +13,14 @@ const LiveClass = ({ type }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (link) => {
-    navigate('/call/1848754'); // Navigate to the specified link
+    navigate('/call/1848754');
   };
 
   const windowSize = useRef(window.innerWidth);
 
   return (
     <section className={`featuredopp ${type}-feature relative mb-24`}>
-      <div className="flex justify-center"> {/* Flex container for centering */}
+      <div className="flex justify-center">
         <div className="featuredopp-container container bg-gradient-to-b from-[#f5fafe] to-[#ffffff] border border-[#dde5ea] rounded-[30px] p-8 max-w-[1200px]"> {/* Set max-width for better centering */}
           <div className="featuredopp-content mb-6">
             <h2 className="font-semibold text-[28px] mb-6">Upcoming Live Classes</h2>
@@ -77,7 +77,7 @@ const LiveClass = ({ type }) => {
                 </div>
               </div>
             </SwiperSlide>
-            {/* Add more SwiperSlides in the same structure as above */}
+      
             <SwiperSlide>
               <div
                 href=""
@@ -106,7 +106,7 @@ const LiveClass = ({ type }) => {
                 </div>
               </div>
             </SwiperSlide>
-            {/* Repeat for other slides... */}
+     
             <SwiperSlide>
               <div
                 href=""
@@ -138,7 +138,7 @@ const LiveClass = ({ type }) => {
                 </div>
               </div>
             </SwiperSlide>
-            {/* Continue with remaining slides... */}
+            
           </Swiper>
         </div>
       </div>

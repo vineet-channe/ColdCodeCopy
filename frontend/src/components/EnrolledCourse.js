@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -9,10 +9,10 @@ import { MdArrowRightAlt } from "react-icons/md";
 
 const EnrolledCourse = ({ type }) => {
   const windowSize = useRef(window.innerWidth);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleCardClick = () => {
-    navigate('/call/1848754'); // Navigate to the specified link
+    navigate('/call/1848754'); 
   };
 
   return (
@@ -78,7 +78,7 @@ const EnrolledCourse = ({ type }) => {
                 </div>
               </div>
             </SwiperSlide>
-            {/* Additional SwiperSlide components with similar structure */}
+  
             <SwiperSlide>
               <div
                 className="featureopp-card cursor-pointer border border-[#dde5ea] rounded-[16px]"
@@ -132,7 +132,6 @@ const EnrolledCourse = ({ type }) => {
                 </div>
               </div>
             </SwiperSlide>
-            {/* Continue with remaining slides... */}
           </Swiper>
         </div>
       </div>

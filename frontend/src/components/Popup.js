@@ -10,7 +10,7 @@ const Popup = ({ onClose }) => {
     academic: [],
   });
   const [loading, setLoading] = useState(false);
-  const [mentorDetails, setMentorDetails] = useState(null); // State to store mentor details
+  const [mentorDetails, setMentorDetails] = useState(null); 
   const [error, setError] = useState("");
 
   const communicationOptions = [
@@ -72,16 +72,16 @@ const Popup = ({ onClose }) => {
 
     try {
       const response = await fetch("http://localhost:5000/api/mentor/connect", {
-        method: "POST", // Change to POST request
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: user.email }), // Send email in body
+        body: JSON.stringify({ email: user.email }), 
       });
 
       const data = await response.json();
-      setMentorDetails(data); // Set the mentor details received from the backend
-      onClose(); // Close the popup after submitting
+      setMentorDetails(data); 
+      onClose();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -148,10 +148,8 @@ const Popup = ({ onClose }) => {
           )}
         </div>
 
-        {/* Display error message if any */}
         {error && <p className="text-red-500 mt-4">{error}</p>}
 
-        {/* Display mentor details if available */}
         {mentorDetails && (
           <div className="mt-6">
             <h3 className="text-lg font-bold">Mentor Details:</h3>
