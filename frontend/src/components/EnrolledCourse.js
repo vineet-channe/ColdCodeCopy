@@ -31,7 +31,7 @@ const EnrolledCourse = ({ type }) => {
           >
             <SwiperSlide>
               <a
-                href="https://ineuron.ai/course/deep-learning-essentials-end-to-end-project"
+                href=""
                 target={"_blank"}
                 rel={"noreferrer"}
               >
