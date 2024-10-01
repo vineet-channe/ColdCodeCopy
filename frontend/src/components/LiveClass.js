@@ -5,8 +5,17 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { MdArrowRightAlt } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
+
 
 const LiveClass = ({ type }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (link) => {
+    navigate('/call/1848754'); // Navigate to the specified link
+  };
+
   const windowSize = useRef(window.innerWidth);
 
   return (
@@ -31,12 +40,11 @@ const LiveClass = ({ type }) => {
             speed={800}
           >
             <SwiperSlide>
-              <a
-                href=""
-                target={"_blank"}
-                rel={"noreferrer"}
+              <div
               >
-                <div className="featureopp-card cursor-pointer border border-[#dde5ea] rounded-[16px]">
+                <div onClick={() =>
+                  handleCardClick("https://ineuron.ai/course/deep-learning-essentials-end-to-end-project")
+                } className="featureopp-card cursor-pointer border border-[#dde5ea] rounded-[16px]">
                   <div className="featureopp-card-img shadow-[0_-0.898705px_12.5819px_rgba(39,73,125,0.1)] overflow-hidden z-0 bg-white rounded-[15px]">
                     <img
                       src="https://ineuron.ai/_next/image?url=https%3A%2F%2Fcdn.ineuron.ai%2Fassets%2Fuploads%2Fthumbnails%2F661e4b13894c1953a915e25a.jpg&w=828&q=75"
@@ -67,11 +75,11 @@ const LiveClass = ({ type }) => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             </SwiperSlide>
             {/* Add more SwiperSlides in the same structure as above */}
             <SwiperSlide>
-              <a
+              <div
                 href=""
                 target={"_blank"}
                 rel={"noreferrer"}
@@ -96,11 +104,11 @@ const LiveClass = ({ type }) => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             </SwiperSlide>
             {/* Repeat for other slides... */}
             <SwiperSlide>
-              <a
+              <div
                 href=""
                 target={"_blank"}
                 rel={"noreferrer"}
@@ -128,7 +136,7 @@ const LiveClass = ({ type }) => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             </SwiperSlide>
             {/* Continue with remaining slides... */}
           </Swiper>

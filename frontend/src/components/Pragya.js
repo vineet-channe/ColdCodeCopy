@@ -14,6 +14,11 @@ function Pragya() {
     }
   }, [chatHistory]);
 
+    useEffect(() => {
+    setChatHistory([{ role: 'assistant', content: 'Hi! How can I assist you today?' }]);
+  }, []); 
+
+
   const processResponse = (html) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
