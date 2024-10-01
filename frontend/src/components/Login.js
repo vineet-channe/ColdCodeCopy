@@ -17,7 +17,7 @@ function Login() {
         
         localStorage.setItem('user-info', JSON.stringify(obj));
 
-        navigate('/dashboard');
+        navigate('/profile');
       }
     } catch (err) {
       console.error('Error while requesting google code: ', err);

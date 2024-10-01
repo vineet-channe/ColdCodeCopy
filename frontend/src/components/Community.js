@@ -118,9 +118,11 @@ const CommunityForum = () => {
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <div className="container mx-auto p-8 mt-16">
+
+      <Polls /> 
         
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Select Community</h1>
+          <h1 className="text-3xl font-bold mb-4">Communities</h1>
           <div className="flex space-x-4">
             {communities.map((community) => (
               <button
@@ -134,7 +136,7 @@ const CommunityForum = () => {
           </div>
         </div>
 
-        <Polls /> 
+        
 
         <div className="mb-8">
           <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
@@ -143,7 +145,7 @@ const CommunityForum = () => {
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
               placeholder="What's on your mind?"
-              className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full h-14 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
             ></textarea>
             <button
               onClick={handleAddPost}
