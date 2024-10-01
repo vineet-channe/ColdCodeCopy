@@ -49,9 +49,13 @@ const academicOptions = [
   { value: 'Business Studies', label: 'Business Studies' },
 ];
 
+const userInfo = JSON.parse(localStorage.getItem('user-info'));
+const profileImage = userInfo?.image || '';
+const profileName = userInfo?.name || '';
+
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
-    _id: '',
+  
     name: '',
     age: '',
     academic_interests: [],
@@ -60,6 +64,7 @@ const UserProfile = () => {
     preferred_languages: [],
     preferred_communication: [],
     phoneNumber: '',
+    email: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -67,16 +72,15 @@ const UserProfile = () => {
   const [popupVisible, setPopupVisible] = useState(false); // State for the popup
   const navigate = useNavigate();
 
-  const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  const profileImage = userInfo?.image || '';
-  const profileName = userInfo?.name || '';
+
 
   useEffect(() => {
-    if (userInfo && userInfo._id) {
+    if (userInfo && userInfo.email) {
       const fetchUserProfile = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/user/${userInfo._id}`);
-          setUserProfile(response.data);
+          const response = await axios.get(`http://localhost:5000/api/user/get/${userInfo.email}`);
+          setUserProfile(response.data[0]);
+          console.log(response.data)
         } catch (err) {
           console.error('Error fetching user profile:', err);
           setError('Error fetching profile data');
@@ -141,7 +145,7 @@ const UserProfile = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/user/${userProfile._id}`, userProfile);
+      const response = await axios.put(`http://localhost:5000/api/user/update/${userInfo.email}`, userProfile);
       if (response.data.success) {
         setSuccessMessage('Profile updated successfully!');
       } else {
