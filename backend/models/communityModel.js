@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-// Define the post schema
+
 const postSchema = new mongoose.Schema({
     content: { type: String, required: false },
     author: {
@@ -20,11 +20,11 @@ const postSchema = new mongoose.Schema({
         image: String,
     },
     comments: [commentSchema],
-    community: { type: String, required: false }, // Example: 'General', 'Coding', etc.
+    community: { type: String, required: false }, 
     createdAt: { type: Date, default: Date.now },
 });
 
-// Create the Post model
+
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post;

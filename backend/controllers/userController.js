@@ -1,7 +1,7 @@
 // controllers/userController.js
 const User = require('../models/userModel');
 
-// Get user profile by ID
+
 exports.getUserProfile = async (req, res) => {
   try {
     const user = await User.find({"email" : req.params.email});
@@ -14,11 +14,11 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 
-// Update user profile by ID
+
 exports.updateUserProfile = async (req, res) => {
     try {
         console.log(req.body)
-      const { email } = req.body; // Get the email from the request body
+      const { email } = req.body; 
       const user = await User.findOneAndUpdate({ email }, req.body, { new: true }); // Find user by email and update
         console.log(user)
       if (!user) {

@@ -1,23 +1,23 @@
 const Post = require('../models/communityModel');
 
 exports.fetchPostsByCommunity = async (req, res) => {
-    const { community } = req.query; // Get community from query parameters
+    const { community } = req.query; 
   
     try {
-      // Fetch posts from the database based on the community
+      
       const posts = await Post.find({ community });
   
-      // Ensure each post has a comments array
+      
       const formattedPosts = posts.map(post => ({
-        ...post.toObject(), // Convert Mongoose document to plain JavaScript object
-        comments: post.comments || [] // Initialize comments as an empty array if undefined
+        ...post.toObject(), 
+        comments: post.comments || [] 
       }));
   
-      // Send the formatted posts back to the client
+      
       res.status(200).json(formattedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
-      res.status(500).json({ message: 'Server error' }); // Send error response
+      res.status(500).json({ message: 'Server error' }); 
     }
   };
 
