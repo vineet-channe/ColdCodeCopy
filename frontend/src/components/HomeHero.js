@@ -6,7 +6,7 @@ const HomeHero = () => {
       title: "Courses",
       image:
         "https://cdn.unstop.com/uploads/images/home/home-hero-learn.png?d=324x406",
-      link: "",
+      link: "courses", // Use a string identifier for scrolling
     },
     {
       title: "Mentorships",
@@ -22,6 +22,19 @@ const HomeHero = () => {
     },
   ];
 
+  const handleLinkClick = (e, link) => {
+    e.preventDefault(); // Prevent default anchor behavior
+    if (link === "courses") {
+      window.scrollBy({
+        top: 800, // Adjust this value to scroll down by a specific number of pixels
+        left: 0,
+        behavior: "smooth", // Smooth scroll
+      });
+    } else {
+      window.location.href = link; // Navigate to external link
+    }
+  };
+
   return (
     <section className="relative py-24">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-24">
@@ -30,13 +43,13 @@ const HomeHero = () => {
             Inspiring a
             <br />
             <strong className="font-bold text-6xl lg:text-7xl">
-            Brighter Future
+              Brighter Future
             </strong>
             <span className="absolute bottom-[-20px] left-0 w-2/5 h-[2px] bg-[#f2c034]"></span>
           </h1>
           <p className="font-normal text-2xl">
-          Unlocking a world of opportunities for children, helping them learn,
-          grow, and achieve their dreams through quality education and resources.
+            Unlocking a world of opportunities for children, helping them learn,
+            grow, and achieve their dreams through quality education and resources.
           </p>
         </div>
 
@@ -46,13 +59,16 @@ const HomeHero = () => {
               className="relative overflow-hidden rounded-lg transition-transform transform hover:-translate-y-2"
               key={ele.image}
             >
-              <a href={ele.link} className="block relative">
+              <a
+                href={ele.link}
+                className="block relative"
+                onClick={(e) => handleLinkClick(e, ele.link)} // Add click handler
+              >
                 <img
                   src={ele.image}
                   alt={ele.title}
                   className="w-full h-[150px] object-cover transition-transform duration-300 ease-in-out"
                 />
-                {/* Blur effect on hover */}
                 <div className="absolute inset-0 transition-opacity duration-300 opacity-0 hover:opacity-100 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
                   <span className="text-white text-lg font-semibold z-10">
                     {ele.title}
@@ -64,7 +80,7 @@ const HomeHero = () => {
         </div>
       </div>
 
-      {/* Custom Background Elements */}
+      {/* Additional sections or content can be added here */}
     </section>
   );
 };
