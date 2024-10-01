@@ -15,6 +15,7 @@ import Home from './components/Home';
 import CommunityForum from './components/Community';
 import Mentorship from "./components/Mentorship";
 import IncomeCert from "./components/IncomeCert";
+import Query from "./components/Query";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -43,6 +44,7 @@ function App() {
         <Route path="/call/:callid" element={<PrivateRoute element={<VideoCall/>} />} />
         <Route path="*" element={<NotFound/>} />
         <Route path="/query/incomecertificate" element={<IncomeCert />}></Route>
+        <Route path="/query" element={<Query />}></Route>
         <Route path="/home" element={<Home/>} />
         <Route path="/mentorship" element={<Mentorship/>} />
         <Route path="/video/:videoId" element={<PrivateRoute element={<Player/>} />} />

@@ -252,7 +252,7 @@ const Scholarship = () => {
 
         {/* Document Helper Button */}
         <button
-          onClick={() => navigate("/query/incomecertificate")} // Navigate to the specified path
+          onClick={() => navigate("/query/")} // Navigate to the specified path
           className="w-full bg-green-500 text-white py-2 rounded-md mt-4"
         >
           Document Helper
