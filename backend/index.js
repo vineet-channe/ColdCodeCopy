@@ -22,6 +22,7 @@ const youtubeRoutes = require('./routes/youtubeRoutes');
 const authRoutes = require('./routes/authRoutes');
 const communityRoutes = require('./routes/community')
 const userRoutes = require('./routes/userRoute')
+const mentormatchRoutes = require('./routes/mentormatchRoutes')
 
 app.use('/api/notebook', notebookRoutes);
 app.use('/api/generate', chatbotRoutes );
@@ -29,6 +30,7 @@ app.use('/api/youtube', youtubeRoutes);
 app.use('/api/googleauth', authRoutes);
 app.use('/api/forum', communityRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/mentor', mentormatchRoutes);
 
 // Start the server
 app.listen(port, () => {

@@ -112,6 +112,7 @@ const MentorCard = ({ mentor }) => {
   );
 };
 
+const user = JSON.parse(localStorage.getItem('user-info'));
 // "Mentor Connect" button functionality
 const MentorConnectButton = ({ onConnectClick }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,16 +120,18 @@ const MentorConnectButton = ({ onConnectClick }) => {
 
   const handleConnectClick = async () => {
     setIsLoading(true);
+    setResponseMessage(""); // Clear previous messages
     try {
-      const response = await fetch("/api/mentor/connect", {
-        method: "POST",
+      const response = await fetch("http://localhost:5000/api/mentor/connect", {
+        method: "POST", // Change to POST request
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: "User wants to connect with a mentor" }), // Customize this data as needed
+        body: JSON.stringify({ email: user.email }), // Send email in body
       });
 
       const data = await response.json();
+      console.log(data)
       setResponseMessage(data.message || "Request sent successfully");
     } catch (error) {
       setResponseMessage("Error: Could not send request.");
@@ -141,7 +144,7 @@ const MentorConnectButton = ({ onConnectClick }) => {
     <div className="flex justify-center mt-8">
       <button
         className="bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600 transition-colors duration-300"
-        onClick={onConnectClick} // Call the passed function instead
+        onClick={handleConnectClick} // Call the passed function instead
         disabled={isLoading}
       >
         {isLoading ? "Sending..." : "Mentor Connect"}

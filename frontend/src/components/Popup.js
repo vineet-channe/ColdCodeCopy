@@ -64,27 +64,20 @@ const Popup = ({ onClose }) => {
     setQuestionIndex(prevIndex => prevIndex - 1);
   };
 
+  const user = JSON.parse(localStorage.getItem('user-info'));
+
   const handleSubmit = async () => {
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch("/api/mentor/submit", { 
-        method: "POST",
+      const response = await fetch("http://localhost:5000/api/mentor/connect", {
+        method: "POST", // Change to POST request
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          communication_preferences: answers.communication,
-          languages: answers.languages,
-          career: answers.career,
-          academic: answers.academic,
-        }),
+        body: JSON.stringify({ email: user.email }), // Send email in body
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch mentor details");
-      }
 
       const data = await response.json();
       setMentorDetails(data); // Set the mentor details received from the backend
@@ -95,6 +88,8 @@ const Popup = ({ onClose }) => {
       setLoading(false);
     }
   };
+
+  
 
   const questions = [
     {
