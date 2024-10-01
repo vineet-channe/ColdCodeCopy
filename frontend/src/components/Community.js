@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
+import Polls from './Polls'; // Import the Polls component
 
 const CommunityForum = () => {
   const [selectedCommunity, setSelectedCommunity] = useState('General');
@@ -138,6 +139,9 @@ const CommunityForum = () => {
               ))}
             </div>
           </div>
+
+          {/* Polls Section */}
+          <Polls /> {/* Add the Polls component here */}
 
           {/* Forum Section */}
           <div className="mb-8">
