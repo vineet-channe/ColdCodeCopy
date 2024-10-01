@@ -120,95 +120,93 @@ const CommunityForum = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <Navbar />
-      <div className="min-h-screen bg-gray-100 p-8 mt-16">
-        <div className="container mx-auto">
-          {/* Community Section */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Select Community</h1>
-            <div className="flex space-x-4">
-              {communities.map((community) => (
-                <button
-                  key={community}
-                  onClick={() => setSelectedCommunity(community)}
-                  className={`px-4 py-2 rounded-lg ${selectedCommunity === community ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'} transition duration-200`}
-                >
-                  {community}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Polls Section */}
-          <Polls /> {/* Add the Polls component here */}
-
-          {/* Forum Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
-            <div className="mt-4">
-              <textarea
-                value={postContent}
-                onChange={(e) => setPostContent(e.target.value)}
-                placeholder="What's on your mind?"
-                className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              ></textarea>
+      <div className="container mx-auto p-8 mt-16">
+        {/* Community Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-4">Select Community</h1>
+          <div className="flex space-x-4">
+            {communities.map((community) => (
               <button
-                onClick={handleAddPost}
-                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                key={community}
+                onClick={() => setSelectedCommunity(community)}
+                className={`px-4 py-2 rounded-lg transition duration-200 ${selectedCommunity === community ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600 hover:bg-blue-300'}`}
               >
-                Post
+                {community}
               </button>
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Posts and Comments */}
-          <div>
-            {posts.length > 0 ? (
-              posts.map((post, index) => (
-                <div key={post._id} className="bg-white p-4 mb-4 rounded-lg shadow">
-                  <div className="flex justify-between items-center">
-                    <p>{post.content}</p>
-                    <button
-                      onClick={() => handleDeletePost(post._id, index)}
-                      className="text-red-600 hover:text-red-800 transition duration-200"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <div className="mt-4">
-                    <textarea
-                      value={commentContents[post._id] || ''} // Manage individual comment content
-                      onChange={(e) => setCommentContents((prev) => ({ ...prev, [post._id]: e.target.value }))}
-                      placeholder="Write a comment..."
-                      className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    ></textarea>
-                    <button
-                      onClick={() => handleAddComment(post._id, index)}
-                      className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200"
-                    >
-                      Comment
-                    </button>
-                  </div>
+        {/* Polls Section */}
+        <Polls /> {/* Add the Polls component here */}
 
-                  {/* Comments Section */}
-                  <div className="mt-4">
-                    {Array.isArray(post.comments) && post.comments.length > 0 ? (
-                      post.comments.map((comment, commentIndex) => (
-                        <div key={commentIndex} className="border-t border-gray-200 mt-2 pt-2">
-                          <p className="text-sm text-gray-600">{comment.content}</p>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-sm text-gray-400">No comments yet.</p>
-                    )}
-                  </div>
+        {/* Forum Section */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold">Community Forum: {selectedCommunity}</h2>
+          <div className="mt-4">
+            <textarea
+              value={postContent}
+              onChange={(e) => setPostContent(e.target.value)}
+              placeholder="What's on your mind?"
+              className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            ></textarea>
+            <button
+              onClick={handleAddPost}
+              className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+            >
+              Post
+            </button>
+          </div>
+        </div>
+
+        {/* Posts and Comments */}
+        <div>
+          {posts.length > 0 ? (
+            posts.map((post, index) => (
+              <div key={post._id} className="bg-white p-4 mb-4 rounded-lg shadow-lg transition-transform duration-200 hover:shadow-xl">
+                <div className="flex justify-between items-center">
+                  <p className="text-gray-800">{post.content}</p>
+                  <button
+                    onClick={() => handleDeletePost(post._id, index)}
+                    className="text-red-600 hover:text-red-800 transition duration-200"
+                  >
+                    Delete
+                  </button>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No posts yet in this community. Be the first to post!</p>
-            )}
-          </div>
+                <div className="mt-4">
+                  <textarea
+                    value={commentContents[post._id] || ''} // Manage individual comment content
+                    onChange={(e) => setCommentContents((prev) => ({ ...prev, [post._id]: e.target.value }))}
+                    placeholder="Write a comment..."
+                    className="w-full h-16 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  ></textarea>
+                  <button
+                    onClick={() => handleAddComment(post._id, index)}
+                    className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200"
+                  >
+                    Comment
+                  </button>
+                </div>
+
+                {/* Comments Section */}
+                <div className="mt-4">
+                  {Array.isArray(post.comments) && post.comments.length > 0 ? (
+                    post.comments.map((comment, commentIndex) => (
+                      <div key={commentIndex} className="border-t border-gray-200 mt-2 pt-2">
+                        <p className="text-sm text-gray-600">{comment.content}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-gray-400">No comments yet.</p>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No posts yet in this community. Be the first to post!</p>
+          )}
         </div>
       </div>
     </div>
