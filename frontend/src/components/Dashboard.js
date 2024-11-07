@@ -22,7 +22,7 @@ const Dashboard = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('http://localhost:5000/api/youtube/search', {
+      const response = await axios.get('https://coldcodecopy.onrender.com/api/youtube/search', {
         params: { q: searchQuery }
       });
 

@@ -78,7 +78,7 @@ const UserProfile = () => {
     if (userInfo && userInfo.email) {
       const fetchUserProfile = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/user/get/${userInfo.email}`);
+          const response = await axios.get(`https://coldcodecopy.onrender.com/api/user/get/${userInfo.email}`);
           setUserProfile(response.data[0]);
           console.log(response.data)
         } catch (err) {
@@ -145,7 +145,7 @@ const UserProfile = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/user/update/${userInfo.email}`, userProfile);
+      const response = await axios.put(`https://coldcodecopy.onrender.com/api/user/update/${userInfo.email}`, userProfile);
       if (response.data.success) {
         setSuccessMessage('Profile updated successfully!');
       } else {

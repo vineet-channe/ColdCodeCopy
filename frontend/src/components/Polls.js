@@ -32,7 +32,7 @@ const Polls = () => {
     const selectedOption = pollResponses[pollId];
     if (selectedOption) {
       try {
-        await fetch(`http://localhost:5000/api/forum/polls/${pollId}/vote`, {
+        await fetch(`https://coldcodecopy.onrender.com/api/forum/polls/${pollId}/vote`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

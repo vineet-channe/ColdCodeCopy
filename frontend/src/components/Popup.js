@@ -71,7 +71,7 @@ const Popup = ({ onClose }) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/mentor/connect", {
+      const response = await fetch("https://coldcodecopy.onrender.com/api/mentor/connect", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

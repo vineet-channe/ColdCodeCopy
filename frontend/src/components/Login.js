@@ -9,7 +9,7 @@ function Login() {
   const responseGoogle = async (authResult) => {
     try {
       if (authResult['code']) {
-        const result = await axios.get(`http://localhost:5000/api/googleauth/login?code=${authResult['code']}`);
+        const result = await axios.get(`https://coldcodecopy.onrender.com/api/googleauth/login?code=${authResult['code']}`);
         const { email, name, image } = result.data.user;
         const token = result.data.token;
 

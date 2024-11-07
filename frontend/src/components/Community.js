@@ -22,7 +22,7 @@ const CommunityForum = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/forum/getpost?community=${selectedCommunity}`, {
+      const response = await fetch(`https://coldcodecopy.onrender.com/api/forum/getpost?community=${selectedCommunity}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -46,7 +46,7 @@ const CommunityForum = () => {
   const handleAddPost = async () => {
     if (postContent.trim()) {
       try {
-        const response = await fetch('http://localhost:5000/api/forum/post', {
+        const response = await fetch('https://coldcodecopy.onrender.com/api/forum/post', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const CommunityForum = () => {
     const commentContent = commentContents[postId];
     if (commentContent && commentContent.trim()) {
       try {
-        const response = await fetch(`http://localhost:5000/api/forum/post/${postId}/comment`, {
+        const response = await fetch(`https://coldcodecopy.onrender.com/api/forum/post/${postId}/comment`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const CommunityForum = () => {
 
   const handleDeletePost = async (postId, index) => {
     try {
-      await fetch(`http://localhost:5000/api/forum/post/${postId}`, {
+      await fetch(`https://coldcodecopy.onrender.com/api/forum/post/${postId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

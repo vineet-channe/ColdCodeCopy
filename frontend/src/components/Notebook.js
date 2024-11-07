@@ -27,7 +27,7 @@ const Notebook = ({notebook,selectNotebook  }) => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/notebook/saveNotebook/${notebook._id}`,
+      const response = await axios.put(`https://coldcodecopy.onrender.com/api/notebook/saveNotebook/${notebook._id}`,
         {         
           content: editorHtml, 
         },

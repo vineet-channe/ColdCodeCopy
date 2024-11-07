@@ -13,7 +13,7 @@ const Library = ({ selectNotebook }) => {
 
     const fetchNotebooks = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/notebook/getNotebooks', {
+            const response = await axios.get('https://coldcodecopy.onrender.com/api/notebook/getNotebooks', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -35,7 +35,7 @@ const Library = ({ selectNotebook }) => {
     const createNotebook = async () => {
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/notebook/createNotebook',
+                'https://coldcodecopy.onrender.com/api/notebook/createNotebook',
                 {
                     owner: email,
                     title: newNotebookTitle,
@@ -57,7 +57,7 @@ const Library = ({ selectNotebook }) => {
     // Delete a notebook
     const deleteNotebook = async (notebookId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/notebook/deleteNotebook/${notebookId}`, {
+            await axios.delete(`https://coldcodecopy.onrender.com/api/notebook/deleteNotebook/${notebookId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

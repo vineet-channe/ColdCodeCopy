@@ -37,7 +37,7 @@ function Pragya() {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/generate/getanswer', { query: message });
+      const response = await axios.post('https://coldcodecopy.onrender.com/api/generate/getanswer', { query: message });
       const { answer } = response.data;
       const processedAnswer = processResponse(answer);
 
