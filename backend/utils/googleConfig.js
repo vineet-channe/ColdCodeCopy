@@ -6,7 +6,7 @@ console.log(GOOGLE_CLIENT_ID)
 oauth2Client = new google.auth.OAuth2(
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
-  'http://localhost:3000'
+  'https://cold-code-copy-a2wxmhhod-vineet-channes-projects.vercel.app'
 );
 
 module.exports = {oauth2Client}
