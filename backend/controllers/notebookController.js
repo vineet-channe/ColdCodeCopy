@@ -40,6 +40,8 @@ const createNotebook = async (req, res) => {
 
 const deleteNotebook = async (req, res) => {
     try {
+        console.log("hiii")
+        console.log(req)
         const { id } = req.params;
         const notebook = await Notebook.findByIdAndDelete(id);
 
@@ -78,6 +80,7 @@ const saveNotebookContent = async (req, res) => {
 
 const getNotebookContent = async (req, res) => {
     try {
+        console.log("ID")
         const { id } = req.params;
 
         const notebook = await Notebook.findById(id);

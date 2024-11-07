@@ -29,7 +29,8 @@ function Navbar() {
                         <Link to="/ytdashboard" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Learn</Link>
                         <Link to="/scholarship" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Scholarship</Link>
                         <Link to="/community" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">Community</Link>
-                       
+                        <Link to="/aboutus" className="text-black hover:text-gray-300 hover:scale-105 inline-block transform duration-200">About</Link>
+                        
                     </div>
 
                     <div className="flex flex-row">

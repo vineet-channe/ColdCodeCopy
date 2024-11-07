@@ -10,13 +10,13 @@ const {
 const authMiddleware = require('../middleware/authMiddleware');
 
 
-router.get('/getNotebooks',authMiddleware, getNotebooks);
-router.get('/getNotebookContent',authMiddleware, getNotebookContent);
+router.get('/getNotebooks', getNotebooks);
+router.get('/getNotebookContent', getNotebookContent);
 
-router.post('/createNotebook',authMiddleware, createNotebook);
+router.post('/createNotebook', createNotebook);
 
-router.delete('/deleteNotebook/:id',authMiddleware, deleteNotebook);
+router.delete('/deleteNotebook/:id', deleteNotebook);
 
-router.put('/saveNotebook/:id',authMiddleware, saveNotebookContent);
+router.put('/saveNotebook/:id', saveNotebookContent);
 
 module.exports = router;
